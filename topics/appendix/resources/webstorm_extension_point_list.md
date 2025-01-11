@@ -17,7 +17,7 @@
 
 </tldr>
 
-74 Extension Points and 5 Listeners for WebStorm
+78 Extension Points and 5 Listeners for WebStorm
 
 See [](intellij_platform_extension_point_list.md) for IntelliJ Platform and [](oss_plugins_extension_point_list.md) for additional plugins.
 
@@ -25,7 +25,7 @@ See [](intellij_platform_extension_point_list.md) for IntelliJ Platform and [](o
 
 ## WebStorm
 
-### WebStorm - Listeners
+### WebStorm – Listeners
 
 | Topic | Listener |
 |-------|----------|
@@ -44,6 +44,7 @@ See [](intellij_platform_extension_point_list.md) for IntelliJ Platform and [](o
 | [com.intellij.css.cssFileReferenceProvider](https://jb.gg/ipe?extensions=com.intellij.css.cssFileReferenceProvider) | `CssFileReferenceProvider` |
 | [com.intellij.css.cssInspectionFilter](https://jb.gg/ipe?extensions=com.intellij.css.cssInspectionFilter) | `CssInspectionFilter` |
 | [com.intellij.css.cssIntentionFilter](https://jb.gg/ipe?extensions=com.intellij.css.cssIntentionFilter) | `CssIntentionFilter` |
+| [com.intellij.css.cssRelatedStylesheetsProvider](https://jb.gg/ipe?extensions=com.intellij.css.cssRelatedStylesheetsProvider) | `CssRelatedStylesheetsProvider` |
 | [com.intellij.css.dialect](https://jb.gg/ipe?extensions=com.intellij.css.dialect) | `CssDialect` |
 | [com.intellij.css.elementDescriptorProvider](https://jb.gg/ipe?extensions=com.intellij.css.elementDescriptorProvider) | `CssElementDescriptorProvider` |
 | [com.intellij.css.embeddedCssProvider](https://jb.gg/ipe?extensions=com.intellij.css.embeddedCssProvider) | `EmbeddedCssProvider` |
@@ -63,7 +64,7 @@ See [](intellij_platform_extension_point_list.md) for IntelliJ Platform and [](o
 |-----------------|----------------|
 | [com.intellij.javascript.webTypes](https://jb.gg/ipe?extensions=com.intellij.javascript.webTypes) ![Removal][removal] | `n/a` |
 
-### JavaScript
+### js-plugin.xml
 
 | Extension Point | Implementation |
 |-----------------|----------------|
@@ -77,6 +78,7 @@ See [](intellij_platform_extension_point_list.md) for IntelliJ Platform and [](o
 | [JavaScript.componentUsageProvider](https://jb.gg/ipe?extensions=JavaScript.componentUsageProvider) | `JSComponentUsageProvider` |
 | [JavaScript.conditionalCompilationDefinitionsProvider](https://jb.gg/ipe?extensions=JavaScript.conditionalCompilationDefinitionsProvider) | `JSConditionalCompilationDefinitionsProvider` |
 | [JavaScript.dialectSpecificHandlersFactory](https://jb.gg/ipe?extensions=JavaScript.dialectSpecificHandlersFactory) | `JSDialectSpecificHandlersFactory` |
+| [JavaScript.directFileReferenceResolverProvider](https://jb.gg/ipe?extensions=JavaScript.directFileReferenceResolverProvider) | `JSDirectFileReferenceResolverProvider` |
 | [JavaScript.elementScopeProvider](https://jb.gg/ipe?extensions=JavaScript.elementScopeProvider) | `JSElementResolveScopeProvider` |
 | [JavaScript.frameworkIndexingHandler](https://jb.gg/ipe?extensions=JavaScript.frameworkIndexingHandler) | `FrameworkIndexingHandler` |
 | [JavaScript.frameworkSpecificHandler](https://jb.gg/ipe?extensions=JavaScript.frameworkSpecificHandler) | `JSFrameworkSpecificHandler` |
@@ -89,13 +91,14 @@ See [](intellij_platform_extension_point_list.md) for IntelliJ Platform and [](o
 | [JavaScript.indexedFileTypeProvider](https://jb.gg/ipe?extensions=JavaScript.indexedFileTypeProvider) | `IndexedFileTypeProvider` |
 | [JavaScript.inheritedLanguagesConfigurableProvider](https://jb.gg/ipe?extensions=JavaScript.inheritedLanguagesConfigurableProvider) | `JSInheritedLanguagesConfigurableProvider` |
 | [JavaScript.intentionAndInspectionFilter](https://jb.gg/ipe?extensions=JavaScript.intentionAndInspectionFilter) | `IntentionAndInspectionFilter` |
-| [JavaScript.isNotMinifiedFile.provider](https://jb.gg/ipe?extensions=JavaScript.isNotMinifiedFile.provider) ![Internal][internal] | `JSIsNotMinifiedFileProvider` |
+| [JavaScript.itemPresentation](https://jb.gg/ipe?extensions=JavaScript.itemPresentation) ![Experimental][experimental] | `JSItemPresentationProvider` |
 | [JavaScript.jestPackageProvider](https://jb.gg/ipe?extensions=JavaScript.jestPackageProvider) | `JestPackageProvider` |
 | [JavaScript.jsDocCustomTagsHandler](https://jb.gg/ipe?extensions=JavaScript.jsDocCustomTagsHandler) ![Experimental][experimental] | `JSDocCustomTagsHandler` |
 | [JavaScript.jsxImplementation](https://jb.gg/ipe?extensions=JavaScript.jsxImplementation) | `JSXImplementation` |
 | [JavaScript.lang.templates](https://jb.gg/ipe?extensions=JavaScript.lang.templates) ![Project-Level][project-level] | [`Configurable`](%gh-ic%/platform/ide-core/src/com/intellij/openapi/options/Configurable.java) |
 | [JavaScript.languageServiceProvider](https://jb.gg/ipe?extensions=JavaScript.languageServiceProvider) ![Project-Level][project-level] | `JSLanguageServiceProvider` |
 | [JavaScript.languageServiceRemoteHelperFactory](https://jb.gg/ipe?extensions=JavaScript.languageServiceRemoteHelperFactory) | `Factory` |
+| [JavaScript.minifiedFileIndexingProvider](https://jb.gg/ipe?extensions=JavaScript.minifiedFileIndexingProvider) ![Internal][internal] | `JSMinifiedFileIndexingProvider` |
 | [JavaScript.moduleExportsProvider](https://jb.gg/ipe?extensions=JavaScript.moduleExportsProvider) | `JSModuleExportsProvider` |
 | [JavaScript.moduleReferenceContributor](https://jb.gg/ipe?extensions=JavaScript.moduleReferenceContributor) | `JSModuleReferenceContributor` |
 | [JavaScript.nodeModulesIndexableFileNamesProvider](https://jb.gg/ipe?extensions=JavaScript.nodeModulesIndexableFileNamesProvider) | `NodeModulesIndexableFileNamesProvider` |
@@ -111,6 +114,7 @@ See [](intellij_platform_extension_point_list.md) for IntelliJ Platform and [](o
 | [JavaScript.tsConfigCustomizer](https://jb.gg/ipe?extensions=JavaScript.tsConfigCustomizer) ![Experimental][experimental] | `TypeScriptConfigCustomizer` |
 | [JavaScript.tsImportResolver](https://jb.gg/ipe?extensions=JavaScript.tsImportResolver) | `TypeScriptImportsResolverProvider` |
 | [JavaScript.tsServiceExtension](https://jb.gg/ipe?extensions=JavaScript.tsServiceExtension) | `TypeScriptServiceExtension` |
+| [JavaScript.typeScriptCompilerTypePatcher](https://jb.gg/ipe?extensions=JavaScript.typeScriptCompilerTypePatcher) | `TypeScriptCompilerTypePatcher` |
 | [JavaScript.unresolvedReferenceErrorUpdater](https://jb.gg/ipe?extensions=JavaScript.unresolvedReferenceErrorUpdater) ![Experimental][experimental] | `JSUnresolvedReferenceErrorUpdater` |
 | [JavaScript.webBundlerCssReferenceContributor](https://jb.gg/ipe?extensions=JavaScript.webBundlerCssReferenceContributor) | `JSModuleReferenceContributor` |
 | [JavaScript.webBundlerDefinition](https://jb.gg/ipe?extensions=JavaScript.webBundlerDefinition) | `WebBundlerDefinition` |

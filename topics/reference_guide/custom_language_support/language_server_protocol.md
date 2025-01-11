@@ -2,6 +2,8 @@
 
 # Language Server Protocol (LSP)
 
+<primary-label ref="CommercialIDEs"/>
+
 <link-summary>Language Server Protocol (LSP) support in IntelliJ-based IDEs</link-summary>
 
 The [Language Server Protocol](https://microsoft.github.io/language-server-protocol/) (LSP) is an open-standard protocol developed by Microsoft. It enables communication between development tools and Language Servers.
@@ -11,22 +13,62 @@ It also reduces the need for constant maintenance and tracking of changes in rel
 However, the canonical [](custom_language_support.md) provided by IntelliJ Platform still offers a wider range of integration with IDE features than handling and presenting data provided by a Language Server.
 Therefore, the LSP approach shouldn't be considered as a replacement for the existing language API, but rather as an added value.
 
+<video src="https://www.youtube.com/watch?v=N4bkzOqxI4E"/>
+
+_Gain insights into the Language Server Protocol (LSP) and its capabilities while exploring the implementation journey of the
+[Contextive plugin](https://plugins.jetbrains.com/plugin/23928-contextive/),
+designed to document and utilize domain terminology within codebases.
+Chris Simon shares the challenges faced and offers practical tips for aspiring LSP developers._
+
 ## Supported IDEs
+
+<primary-label ref="2023.2"/>
 
 The integration with the Language Server Protocol is created as an extension to the *paid* IntelliJ-based IDEs.
 Therefore, plugins using Language Server integration are not available in Community releases of JetBrains products and Android Studio from Google.
 
-Starting with the 2023.2 release cycle, the LSP API is publicly available as part of the IntelliJ Platform in the following IDEs:
+The LSP API is publicly available as part of the IntelliJ Platform in the following IDEs:
 IntelliJ IDEA Ultimate, WebStorm, PhpStorm, PyCharm Professional, DataSpell, RubyMine, CLion, Aqua, DataGrip, GoLand, Rider, and RustRover.
 
-## Plugin Configuration
+## LSP Plugin Setup
 
-To use the LSP API in a third-party plugin based on the [](tools_gradle_intellij_plugin.md), it is required to upgrade the Gradle IntelliJ Plugin to the latest version available.
-This plugin will attach the LSP API sources and code documentation to the project.
+The plugin must target [](idea_ultimate.md) version `2023.2` or later.
 
-As LSP became available in the 2023.2 EAP7 of IntelliJ-based IDEs, the plugin must target [](idea_ultimate.md) version `2023.2` or later.
+### Gradle Build Script
 
-Example <path>build.gradle.kts</path> configuration:
+<tabs>
+<tab title="IntelliJ Platform Gradle Plugin (2.x)">
+
+Relevant <path>build.gradle.kts</path> configuration:
+
+```kotlin
+plugins {
+  id("org.jetbrains.intellij.platform") version "%intellij-platform-gradle-plugin-version%"
+}
+
+repositories {
+  mavenCentral()
+
+  intellijPlatform {
+    defaultRepositories()
+  }
+}
+
+dependencies {
+  intellijPlatform {
+    intellijIdeaUltimate("%ijPlatform%")
+  }
+}
+```
+
+</tab>
+
+<tab title="Gradle IntelliJ Plugin (1.x)">
+
+Upgrade the Gradle IntelliJ Plugin to the latest version.
+It will attach the LSP API sources and code documentation to the project.
+
+Relevant <path>build.gradle.kts</path> configuration:
 
 ```kotlin
 plugins {
@@ -40,27 +82,38 @@ intellij {
 }
 ```
 
-For projects based on the [](plugin_github_template.md), update the Gradle IntelliJ Plugin to the latest version, and amend the <path>gradle.properties</path> file as follows:
+For projects based on the [](plugin_github_template.md), update the Gradle IntelliJ Plugin to the latest version,
+and amend the values in <path>gradle.properties</path> accordingly.
 
-```
-platformType = IU
-platformVersion = %ijPlatform%
-```
+</tab>
+</tabs>
 
-The <path>plugin.xml</path> configuration file needs to specify the dependency on the IntelliJ IDEA Ultimate module:
+### plugin.xml
+
+The <path>plugin.xml</path> configuration file must specify the dependency on the IntelliJ Platform _Ultimate_ module:
 
 ```xml
+
 <idea-plugin>
-   <!-- ... -->
-   <depends>com.intellij.modules.ultimate</depends>
+  <!-- ... -->
+  <depends>com.intellij.modules.ultimate</depends>
 </idea-plugin>
 ```
 
-The LSP API sources are bundled in IntelliJ IDEA Ultimate and can be found within the <path>[IDE]/lib/src/src_lsp-openapi.zip</path> archive.
+### IDE Setup
+
+Since 2024.2, LSP API sources are provided with the `IntelliJ IDEA Ultimate sources` artifact.
+See [](tools_intellij_platform_gradle_plugin.md#attaching-sources) on how to enable downloading sources.
+Then, use <ui-path>Navigate | Class...</ui-path> to open the `LspServerManager` class.
+In the opened editor, invoke <control>Download IntelliJ Platform sources</control> to download and attach sources.
+
+#### Earlier IDE Versions
+
+The LSP API sources are bundled in the IntelliJ IDEA Ultimate distribution and can be found within the <path>\$IDEA_INSTALLATION\$/lib/src/src_lsp-openapi.zip</path> archive.
 
 > Due to technical limitations in IDEs before 2024.1, it is necessary to manually attach sources to the IntelliJ IDEA Ultimate dependency.
 > To do so, when reviewing the compiled class which belongs to the LSP API, run the _Choose Sources..._ action, and point to the
-> <path>[IDE]/lib/src/src_lsp-openapi.zip</path> file.
+> <path>\$IDEA_INSTALLATION\$/lib/src/src_lsp-openapi.zip</path> file.
 >
 {style="note" title="Attaching Sources in IDE before 2024.1"}
 
@@ -68,21 +121,40 @@ The LSP API sources are bundled in IntelliJ IDEA Ultimate and can be found withi
 
 The LSP support provided by the IntelliJ Platform covers the following features for these releases:
 
-### 2023.2
+### 2024.3
 
-- Errors and warnings highlighting [textDocument/publishDiagnostics](https://microsoft.github.io/language-server-protocol/specification/#textDocument_publishDiagnostics)
-- Quick fixes for errors and warnings ([textDocument/codeAction](https://microsoft.github.io/language-server-protocol/specification/#textDocument_codeAction))
-- Code completion ([textDocument/completion](https://microsoft.github.io/language-server-protocol/specification/#textDocument_completion))
-- Go to Declaration ([textDocument/definition](https://microsoft.github.io/language-server-protocol/specification/#textDocument_definition))
+- Color Preview ([`textDocument/documentColor`](https://microsoft.github.io/language-server-protocol/specification#textDocument_documentColor))
+- Document Save Notification ([`textDocument/didSave`](https://microsoft.github.io/language-server-protocol/specification/#textDocument_didSave)) [2024.3.1]
+
+### 2024.2
+
+- Find Usages ([`textDocument/references`](https://microsoft.github.io/language-server-protocol/specification#textDocument_references))
+- Completion Item Resolve Request ([`completionItem/resolve`](https://microsoft.github.io/language-server-protocol/specification/#completionItem_resolve))
+- Code Action Resolve Request ([`codeAction/resolve`](https://microsoft.github.io/language-server-protocol/specification/#codeAction_resolve))
+- Semantic Highlighting ([`textDocument/semanticTokens/full`](https://microsoft.github.io/language-server-protocol/specification/#semanticTokens_fullRequest)) [2024.2.2]
+
+### 2024.1
+
+- Communication channel: Socket
+- Execute a command ([`workspace/executeCommand`](https://microsoft.github.io/language-server-protocol/specification/#workspace_executeCommand))
+- Apply a WorkspaceEdit ([`workspace/applyEdit`](https://microsoft.github.io/language-server-protocol/specification/#workspace_applyEdit))
+- Show Document Request ([`window/showDocument`](https://microsoft.github.io/language-server-protocol/specification/#window_showDocument))
 
 ### 2023.3
 
-- Intention actions ([textDocument/codeAction](https://microsoft.github.io/language-server-protocol/specification/#textDocument_codeAction))
-- Code formatting ([textDocument/formatting](https://microsoft.github.io/language-server-protocol/specification/#textDocument_formatting))
+- Intention actions ([`textDocument/codeAction`](https://microsoft.github.io/language-server-protocol/specification/#textDocument_codeAction))
+- Code formatting ([`textDocument/formatting`](https://microsoft.github.io/language-server-protocol/specification/#textDocument_formatting))
+- Request cancellation ([`$/cancelRequest`](https://microsoft.github.io/language-server-protocol/specification/#cancelRequest))
+- Quick documentation ([`textDocument/hover`](https://microsoft.github.io/language-server-protocol/specification#textDocument_hover)) [2023.3.2]
+- Client-side file watcher ([`workspace/didChangeWatchedFiles`](https://microsoft.github.io/language-server-protocol/specification#workspace_didChangeWatchedFiles)) [2023.3.2]
 
-### 2023.3.2
+### 2023.2
 
-- Quick documentation ([textDocument/hover](https://microsoft.github.io/language-server-protocol/specification#textDocument_hover))
+- Communication channel: StdIO
+- Errors and warnings highlighting ([`textDocument/publishDiagnostics`](https://microsoft.github.io/language-server-protocol/specification/#textDocument_publishDiagnostics))
+- Quick-fixes for errors and warnings ([`textDocument/codeAction`](https://microsoft.github.io/language-server-protocol/specification/#textDocument_codeAction))
+- Code completion ([`textDocument/completion`](https://microsoft.github.io/language-server-protocol/specification/#textDocument_completion))
+- Go to Declaration ([`textDocument/definition`](https://microsoft.github.io/language-server-protocol/specification/#textDocument_definition))
 
 ## Basic Implementation
 
@@ -116,14 +188,20 @@ private class FooLspServerDescriptor(project: Project) : ProjectWideLspServerDes
 
 ### Status Bar Integration
 
-Since 2024.1, a dedicated <control>Language Services</control> status bar widget is available to monitor the status of all LSP servers.
+<primary-label ref="2024.1"/>
+
+A dedicated <control>Language Services</control> status bar widget is available to monitor the status of all LSP servers.
 Override `LspServerSupportProvider.createLspServerWidgetItem()` to provide a custom icon and link to [Settings](settings.md) page (if available).
 
 ```kotlin
-override fun getLspServerWidgetItem(lspServer: LspServer,
-                                    currentFile: VirtualFile?) =
-  LspServerWidgetItem(lspServer, currentFile,
-                      FooIcons.PluginIcon, FooConfigurable::class.java)
+override fun createLspServerWidgetItem(
+  lspServer: LspServer,
+  currentFile: VirtualFile?
+) =
+  LspServerWidgetItem(
+    lspServer, currentFile,
+    FooIcons.PluginIcon, FooConfigurable::class.java
+  )
 ```
 
 If there are configuration problems preventing from starting an LSP server, the plugin can provide a widget item
@@ -144,9 +222,18 @@ For more complex cases, the plugin may request to provide a detailed configurati
 ## Customization
 
 To fine-tune or disable the implementation of LSP-based features, plugins may override the corresponding properties of the `LspServerDescriptor` class.
-See the property documentation for more details.
+See the [property documentation](#ide-setup) for more details.
 
-Since 2023.2:
+### 2023.3
+
+{id="customization_2023_3"}
+
+- `lspFormattingSupport`
+- `lspHoverSupport`
+
+### 2023.2
+
+{id="customization_2023_2"}
 
 - `lspGoToDefinitionSupport`
 - `lspCompletionSupport`
@@ -154,17 +241,12 @@ Since 2023.2:
 - `lspCodeActionsSupport`
 - `lspCommandsSupport`
 
-Since 2023.3:
-
-- `lspFormattingSupport`
-- `lspHoverSupport`
-
 To handle custom (undocumented) requests and notifications from the LSP server, override `LspServerDescriptor.createLsp4jClient` property and the `Lsp4jClient` class according to their documentation.
 
 To send custom (undocumented) requests and notifications to the LSP server, override `LspServerDescriptor.lsp4jServerClass` property and implement the `LspClientNotification` and/or `LspRequest` classes.
 The documentation in the source code includes implementation examples.
 
-See bundled LSP API source code and its documentation for more information.
+See the [bundled LSP API source code](#ide-setup) and its documentation for more information.
 
 ## Troubleshooting
 

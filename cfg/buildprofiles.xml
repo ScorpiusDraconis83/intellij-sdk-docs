@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2000-2024 JetBrains s.r.o. and contributors. Use of this source code is governed by the Apache 2.0 license. -->
 <buildprofiles xsi:noNamespaceSchemaLocation="https://resources.jetbrains.com/writerside/1.0/build-profiles.xsd"
                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <variables>
         <header-logo>https://resources.jetbrains.com/storage/logos/web/jetbrains/jetbrains-particle.svg</header-logo>
         <web-root>https://plugins.jetbrains.com/docs</web-root>
-        <product-web-url>https://plugins.jetbrains.com/docs/intellij/</product-web-url>
+        <product-web-url>https://plugins.jetbrains.com/docs/intellij/welcome.html</product-web-url>
         <search-scope/>
         <fallback-url/>
         <download-page>https://jb.gg/ipe</download-page>
@@ -27,9 +28,9 @@
         <noindex-content status="eap">false</noindex-content>
         <noindex-content status="release">false</noindex-content>
 
-        <algolia-api-key>8c2683cac2d71d547b55183297abb506</algolia-api-key>
-        <algolia-id>OHIV241QET</algolia-id>
-        <algolia-index>prod_JETBRAINSCOM_HELP</algolia-index>
+        <algolia-id>JWPLKSKZVF</algolia-id>
+        <algolia-index>prod_INTELLIJ-SDK-DOCS_HELP</algolia-index>
+        <algolia-api-key>bce9ba6ce7419efe813d671244d3bf6a</algolia-api-key>
         <algolia-product-id>intellij</algolia-product-id>
         <algolia-product-version></algolia-product-version>
 
@@ -37,11 +38,15 @@
         <analytics-body-html-file>google-analytics-noscript.html</analytics-body-html-file>
 
         <automaticLinkSummaries>false</automaticLinkSummaries>
+        <resizable-sidebar>true</resizable-sidebar>
     </variables>
 
     <build-profile instance="ijs"/>
 
+    <sitemap/>
+
     <footer>
+        <copyright>2000-2024 JetBrains s.r.o. and contributors. Use of this source code is governed by the Apache 2.0 license.</copyright>
         <social type="twitter" href="https://x.com/JBPlatform/"/>
         <social type="blog" href="https://blog.jetbrains.com/platform/"/>
         <social type="youtube" href="https://www.youtube.com/playlist?list=PLQ176FUIyIUZRWGCFY7G9V5zaM00THymY"/>

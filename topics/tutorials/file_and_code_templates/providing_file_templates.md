@@ -1,4 +1,4 @@
-<!-- Copyright 2000-2023 JetBrains s.r.o. and contributors. Use of this source code is governed by the Apache 2.0 license. -->
+<!-- Copyright 2000-2024 JetBrains s.r.o. and contributors. Use of this source code is governed by the Apache 2.0 license. -->
 
 # Providing File and Code Templates
 
@@ -63,7 +63,7 @@ To include file templates in the <control>Other</control> section of the <ui-pat
 [`FileTemplateGroupDescriptorFactory`](%gh-ic%/platform/lang-api/src/com/intellij/ide/fileTemplates/FileTemplateGroupDescriptorFactory.java)
 and register it via the `com.intellij.fileTemplateGroup` EP.
 
-**Example**:
+**Example:**
 [`MavenFileTemplateGroupFactory`](%gh-ic%/plugins/maven/src/main/java/org/jetbrains/idea/maven/utils/MavenFileTemplateGroupFactory.java)
 
 Note that
@@ -86,6 +86,13 @@ It is recommended to follow the convention from the
 [`default.html`](%gh-ic%/platform/platform-resources-en/src/fileTemplates/default.html)
 file.
 
+> If a plugin project is multi-module, and it combines resources into a single JAR, make sure that all template description files have unique names or paths.
+> Otherwise, only the last packed description file will exist in the distribution package.
+>
+{style="warning"}
+
+> See the [](providing_translations.md#bundled-translations) section for information about how to provide file template description translations in plugins.
+
 ## Providing Default File Template Properties
 
 A file template body can use a set of [predefined properties](https://www.jetbrains.com/help/idea/file-template-variables.html#predefined_template_variables) exposed by the IntelliJ Platform out of the box.
@@ -94,6 +101,6 @@ To provide custom properties, implement
 [`DefaultTemplatePropertiesProvider`](%gh-ic%/platform/lang-api/src/com/intellij/ide/fileTemplates/DefaultTemplatePropertiesProvider.java)
 and register it via the `com.intellij.defaultTemplatePropertiesProvider` EP.
 
-**Example**: Java Plugin's
+**Example:** Java Plugin's
 [`TemplatePackagePropertyProvider`](%gh-ic%/java/java-impl/src/com/intellij/ide/fileTemplates/TemplatePackagePropertyProvider.java)
 providing `PACKAGE_NAME` property based on the directory a file is created in.

@@ -53,7 +53,7 @@ The initial phase describes what happens when no parameter info is currently dis
 2. If the returned function call element is valid, the `showParameterInfo()` method is invoked.
    Implementations of this method usually just call `showHint()` of the `CreateParameterInfoContext` providing the offset at which the popup should appear.
 3. For each item to show from step 1, the `updateUI()` method is called.
-   No heavy work is allowed in this method since it runs on EDT, and it should only update the UI representation using, e.g.,
+   No heavy work is allowed in this method since it runs on [EDT](threading_model.md), and it should only update the UI representation using, e.g.,
    `setUIComponentEnabled()` or `setupUIComponentPresentation()` of the provided `ParameterInfoUIContext`.
 4. After that the following methods are called which will be explained in the next phase: `findElementForUpdatingParameterInfo()`,
    `updateParameterInfo()`, `updateUI()`.
@@ -107,11 +107,5 @@ Existing, moderately complex, implementations of `ParameterInfoHandler` in the I
 * [`XPathParameterInfoHandler`](%gh-ic%/plugins/xpath/xpath-lang/src/org/intellij/lang/xpath/XPathParameterInfoHandler.java)
 * [`XmlParameterInfoHandler`](%gh-ic%/xml/impl/src/com/intellij/codeInsight/hint/api/impls/XmlParameterInfoHandler.java)
 
-Implementations of 3rd party plugins can be discovered using the
+Implementations of third party plugins can be discovered using the
 [IntelliJ Platform Explorer](https://plugins.jetbrains.com/intellij-platform-explorer?extensions=com.intellij.codeInsight.parameterInfo).
-Two examples are:
-
-* [RsParameterInfoHandler](https://github.com/intellij-rust/intellij-rust/blob/93853e33261174399babb10e43a3aff133f0a5ef/src/main/kotlin/org/rust/ide/hints/parameter/RsParameterInfoHandler.kt)
-  of the Rust plugin.
-* [LatexParameterInfoHandler](https://github.com/Hannah-Sten/TeXiFy-IDEA/blob/655644b217e3954ae1286d7070a9357f2748f6a6/src/nl/hannahsten/texifyidea/documentation/LatexParameterInfoHandler.kt)
-  of the TeXiFy plugin.

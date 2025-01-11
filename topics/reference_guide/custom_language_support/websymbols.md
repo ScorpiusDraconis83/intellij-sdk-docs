@@ -1,6 +1,7 @@
 <!-- Copyright 2000-2024 JetBrains s.r.o. and contributors. Use of this source code is governed by the Apache 2.0 license. -->
 
 # Web Symbols
+<primary-label ref="2022.3"/>
 
 <link-summary>
 Web Symbols framework simplifies web technology development by utilizing Symbol API and supporting custom syntaxes.
@@ -35,6 +36,8 @@ Currently, IDEs provide built-in integration for following language features (se
 - JavaScript: string-literals, object properties, object literals and symbols (in JavaScript)
 
 There's also the option to write integration for other languages.
+
+Web Symbols framework provides also a convenient way to manage enablement of features through [`WebSymbolsContext` API](websymbols_context.md).
 
 The following sub-pages provide information on how to implement Web Symbols for plugins and how to
 define them statically through JSON schemas:

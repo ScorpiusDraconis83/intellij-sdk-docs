@@ -8,17 +8,17 @@ Plugins can add actions to existing IDE menus and toolbars, as well as add new m
 The IntelliJ Platform calls the actions of plugins in response to user interactions with the IDE.
 However, the actions of a plugin must first be defined and registered with the IntelliJ Platform.
 
-Using the SDK code sample [`action_basics`](%gh-sdk-samples%/action_basics), this tutorial illustrates the steps to create an action for a plugin.
+Using the SDK code sample [`action_basics`](%gh-sdk-samples-master%/action_basics), this tutorial illustrates the steps to create an action for a plugin.
 
 ## Creating a Custom Action
 
 Custom actions extend the abstract class [`AnAction`](%gh-ic%/platform/editor-ui-api/src/com/intellij/openapi/actionSystem/AnAction.java).
 Classes that extend it should override `AnAction.update()`, and must override `AnAction.actionPerformed()`.
 * The `update()` method implements the code that enables or disables an action.
-* The `actionPerformed()` method implements the code that executes when an action is invoked by the user.
+* The `actionPerformed()` method implements the code that executes when the user invokes an action.
 * When targeting IntelliJ Platform 2022.3 or later, `AnAction.getActionUpdateThread()` must be implemented
 
-As an example, [`PopupDialogAction`](%gh-sdk-samples%/action_basics/src/main/java/org/intellij/sdk/action/PopupDialogAction.java) overrides `AnAction` for the `action_basics` code sample.
+As an example, [`PopupDialogAction`](%gh-sdk-samples-master%/action_basics/src/main/java/org/intellij/sdk/action/PopupDialogAction.java) overrides `AnAction` for the `action_basics` code sample.
 
 ```java
 public class PopupDialogAction extends AnAction {
@@ -60,13 +60,7 @@ A more comprehensive explanation of action registration is available in the [](b
 
 ### Registering an Action with the New Action Form
 
-IntelliJ IDEA has an embedded inspection that spots unregistered actions.
-Verify the inspection is enabled at <ui-path>Settings | Editor | Inspections | Plugin DevKit | Code | Component/Action not registered</ui-path>.
-Here is an example for this stage of the `PopupDialogAction` class:
-
-!["Action never used" inspection](action_never_used.png){width="600"}
-
-To register `PopupDialogAction` and set up its basic attributes press <shortcut>Alt+Shift+Enter</shortcut>.
+To register `PopupDialogAction` and set up its basic attributes, press <shortcut>Alt+Shift+Enter</shortcut>.
 Fill out the <control>New Action</control> form to set up the parameters for `PopupDialogAction`:
 
 ![New Action](new_action.png){width="800"}
@@ -100,10 +94,17 @@ After finishing the <control>New Action</control> form and applying the changes,
 </actions>
 ```
 
-The [`<action>`](plugin_configuration_file.md#idea-plugin__actions__action) element declares the <control>Action ID</control> (`id`), <control>Class Name</control> (`class`), <control>Name</control> (`text`), and <control>Description</control> from the <control>New Action</control> form.
+The [`<action>`](plugin_configuration_file.md#idea-plugin__actions__action) element declares the:
+- <control>Action ID</control> (`id`)
+- <control>Class Name</control> (`class`)
+- <control>Name</control> (`text`)
+- <control>Description</control>
+
+from the <control>New Action</control> form.
+
 The [`<add-to-group>`](plugin_configuration_file.md#idea-plugin__actions__action__add-to-group) element declares where the action will appear and mirrors the names of entries from the form.
 
-This declaration is adequate, but adding more attributes is discussed in the next section.
+This declaration is sufficient, but adding more attributes is discussed in the next section.
 
 ### Setting Registration Attributes Manually
 
@@ -111,7 +112,7 @@ An action declaration can be added manually to the <path>plugin.xml</path> file.
 An exhaustive list of declaration elements and attributes is presented in [](basic_action_system.md#registering-actions-in-pluginxml).
 Attributes are added by selecting them from the <control>New Action</control> form, or by editing the registration declaration directly in the <path>plugin.xml</path> file.
 
-The [`<action>`](plugin_configuration_file.md#idea-plugin__actions__action) declaration for `PopupDialogAction` in the `action_basics` [plugin.xml](%gh-sdk-samples%/action_basics/src/main/resources/META-INF/plugin.xml) file.
+The [`<action>`](plugin_configuration_file.md#idea-plugin__actions__action) declaration for `PopupDialogAction` in the `action_basics` [plugin.xml](%gh-sdk-samples-master%/action_basics/src/main/resources/META-INF/plugin.xml) file.
 It also contains an attribute for an [`Icon`](icons.md) and encloses elements declaring text overrides, keyboard and mouse shortcuts, and to which menu group the action should be added.
 
 The full declaration is:
@@ -137,10 +138,10 @@ The full declaration is:
 
 #### Using `override-text` for an Action
 
-By using the `override-text` element introduced in 2020.1 of the IntelliJ Platform, the action text can be different depending on the context of where the action appears: menu, toolbar, etc.
-The example above uses this element to ensure the shorter text "Popup Dialog Action" is shown anywhere the action appears in the main menu structure.
+The example above uses the [`override-text`](plugin_configuration_file.md#idea-plugin__actions__action__override-text) element to ensure the shorter text "Popup Dialog Action" is shown anywhere the action appears in the main menu structure.
 Otherwise, the default, more explanatory text "Action Basics Plugin: Popup Dialog Action" is shown.
-For more information, see [](basic_action_system.md#setting-the-override-text-element).
+
+> Use inspection <ui-path>Settings | Editor | Inspections | Plugin DevKit | Code | Component/Action not registered</ui-path> for reporting unregistered actions.
 
 ## Testing the Minimal Custom Action Implementation
 
