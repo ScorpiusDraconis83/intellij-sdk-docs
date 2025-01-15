@@ -35,12 +35,6 @@ _Plugin DevKit_ plugin is bundled with IntelliJ IDEA until 2023.2.
 
 </snippet>
 
-<snippet id="jetbrainsProductOpenSourceLicense">
-
-> Qualifying Open Source projects can [apply for free licenses](https://www.jetbrains.com/community/opensource/) of JetBrains products.
-
-</snippet>
-
 <snippet id="jetbrainsIDE_TLDR">
 
 <tldr>
@@ -69,11 +63,15 @@ _Early Access Program_ (EAP) releases of upcoming versions are available [here](
 
 <snippet id="apiChangesJavaVersion">
 
-> Java 21 is required when targeting 2024.2 and later only.
+
 >
-> Java 17 is required ([blog post](https://blog.jetbrains.com/platform/2022/08/intellij-project-migrates-to-java-17/)) when targeting 2022.2 and later only.
+> Java version must be set depending on the target platform version.
 >
-> Java 11 is required ([blog post](https://blog.jetbrains.com/platform/2020/09/intellij-project-migrates-to-java-11/)) when targeting 2020.3 and later only.
+> **2024.2+**: Java 21
+>
+> **2022.3+**: Java 17 ([blog post](https://blog.jetbrains.com/platform/2022/08/intellij-project-migrates-to-java-17/))
+>
+> **2020.3+**: Java 11 ([blog post](https://blog.jetbrains.com/platform/2020/09/intellij-project-migrates-to-java-11/))
 >
 {title="IDE and Java Versions" style="note"}
 
@@ -81,11 +79,17 @@ _Early Access Program_ (EAP) releases of upcoming versions are available [here](
 
 <snippet id="gradlePluginVersion">
 
-> When targeting 2024.2 or later, [](tools_intellij_platform_gradle_plugin.md) is required.
+> The Gradle plugin must be chosen depending on the target [platform version](build_number_ranges.md#platformVersions).
 >
-> When targeting 2022.3 or later, [Gradle IntelliJ Plugin](tools_gradle_intellij_plugin.md#usage) version **1.10.1** or higher is required (current: %gradle-intellij-plugin-version%).
+> 2024.2+
+> : **Requires** [](tools_intellij_platform_gradle_plugin.md)
 >
-{style="warning" title="Gradle: Minimum Plugin Versions"}
+> 2022.3+
+> :
+> **Recommended** [](tools_intellij_platform_gradle_plugin.md),<br/>
+> **Requires** [](tools_gradle_intellij_plugin.md) version 1.10.1+ (current: %gradle-intellij-plugin-version%)
+>
+{style="warning" title="Gradle Plugin"}
 
 </snippet>
 
@@ -115,16 +119,16 @@ See [](plugin_extensions.md) on how to declare extensions in your plugin.
 
 See [](verifying_plugin_compatibility.md) for overview of API status.
 
-| Icon                              | Description                         | Details                                                                                                                                                                                                                                                                                                   |
-|-----------------------------------|-------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| ![Deprecated][deprecated]         | Deprecated API                      | Please see code documentation for replacement                                                                                                                                                                                                                                                             |
-| ![Removal][removal]               | Scheduled for Removal API           | Please see code documentation for replacement                                                                                                                                                                                                                                                             |
-| ![Obsolete][obsolete]             | Obsolete API                        | Do not use in new code, please see code documentation for replacement ([](verifying_plugin_compatibility.md#obsolete-api))                                                                                                                                                                                |
-| ![Experimental API][experimental] | Experimental API                    | Annotated with [`@ApiStatus.Experimental`](%gh-java-annotations%/common/src/main/java/org/jetbrains/annotations/ApiStatus.java), API might be altered or removed without prior notice                                                                                                                     |
-| ![Internal API][internal]         | Internal API                        | Annotated with [`@ApiStatus.Internal`](%gh-java-annotations%/common/src/main/java/org/jetbrains/annotations/ApiStatus.java), must not be used by 3rd party, see [](api_internal.md)                                                                                                                       |
-| ![Project-Level][project-level]   | Project-Level Extension Point/Topic | <p>Can have [`Project`](%gh-ic%/platform/core-api/src/com/intellij/openapi/project/Project.java) as constructor parameter</p><p>Extension Point: Declared with `area="IDEA_PROJECT"`</p><p>Listener: registered in [`<projectListeners>`](plugin_configuration_file.md#idea-plugin__projectListeners)</p> |
-| ![Non-Dynamic][non-dynamic]       | Non-Dynamic Extension Point         | Installation/update of plugin requires IDE restart ([](dynamic_plugins.md))                                                                                                                                                                                                                               |
-| ![DumbAware][dumb-aware]          | `DumbAware` Extension Point         | Implementations marked with [`DumbAware`](%gh-ic%/platform/core-api/src/com/intellij/openapi/project/DumbAware.java) will be processed during [dumb mode](indexing_and_psi_stubs.md#dumb-mode)                                                                                                            |
+| Icon                                                            | Description                               | Details                                                                                                                                                                                                                                                                                                        |
+|-----------------------------------------------------------------|-------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| ![Deprecated][deprecated]                                       | Deprecated API                            | See code documentation for replacement.                                                                                                                                                                                                                                                                        |
+| ![Removal][removal]                                             | Scheduled for Removal API                 | See code documentation for replacement.                                                                                                                                                                                                                                                                        |
+| ![Obsolete][obsolete]                                           | Obsolete API                              | Do not use in new code.<p>See code documentation for replacement ([](verifying_plugin_compatibility.md#obsolete-api)).</p>                                                                                                                                                                                     |
+| ![Experimental API][experimental]&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Experimental API                          | Annotated with [`@ApiStatus.Experimental`](%gh-java-annotations%/common/src/main/java/org/jetbrains/annotations/ApiStatus.java).<p>API might be altered or removed without prior notice.</p>                                                                                                                   |
+| ![Internal API][internal]                                       | Internal API                              | Annotated with [`@ApiStatus.Internal`](%gh-java-annotations%/common/src/main/java/org/jetbrains/annotations/ApiStatus.java).<p>Must not be used by third party plugins, see [](api_internal.md).</p>                                                                                                           |
+| ![Project-Level][project-level]                                 | Project-Level<p>Extension Point/Topic</p> | <p>Can have [`Project`](%gh-ic%/platform/core-api/src/com/intellij/openapi/project/Project.java) as constructor parameter.</p><p>- Extension Point: Declared with `area="IDEA_PROJECT"`</p><p>- Listener: registered in [`<projectListeners>`](plugin_configuration_file.md#idea-plugin__projectListeners)</p> |
+| ![Non-Dynamic][non-dynamic]                                     | Non-Dynamic<p>Extension Point</p>         | Installation/update of plugin requires IDE restart ([](dynamic_plugins.md)).                                                                                                                                                                                                                                   |
+| ![DumbAware][dumb-aware]                                        | `DumbAware`<p>Extension Point</p>         | Implementations marked with [`DumbAware`](%gh-ic%/platform/core-api/src/com/intellij/openapi/project/DumbAware.java) will be processed during [dumb mode](indexing_and_psi_stubs.md#dumb-mode).                                                                                                                |
 
 [deprecated]: https://img.shields.io/badge/-Deprecated-lightgrey?style=flat-square
 [removal]: https://img.shields.io/badge/-Removal-red?style=flat-square

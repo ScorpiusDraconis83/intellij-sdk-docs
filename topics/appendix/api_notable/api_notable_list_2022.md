@@ -28,7 +28,7 @@ Specifying Threading for Actions
 : Implementations of `AnAction` need to override `getActionUpdateThread()` as detailed in [](basic_action_system.md#principal-implementation-overrides).
 
 Threading assertions in tests
-: All rules for [threading](general_threading_rules.md) are now checked in tests as well.
+: All rules for [threading](threading_model.md) are now checked in tests as well.
 
 Mapping New UI icons
 : See [](icons.md#new-ui-icons) on how to provide additional icons.
@@ -63,4 +63,4 @@ Unbundled plugins
 ### Maven Plugin 2022.1
 
 Published Maven Test Framework
-: Available as `com.jetbrains.intellij.maven:maven-test-framework` from [](intellij_artifacts.md).
+: Available as `com.jetbrains.intellij.maven:maven-test-framework` from [](intellij_artifacts.md), See also `TestFrameworkType.Plugin.Maven` test-framework available from [](tools_intellij_platform_gradle_plugin_types.md#TestFrameworkType-Plugin).

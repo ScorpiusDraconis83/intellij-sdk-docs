@@ -3,6 +3,7 @@
 <!-- EP List Directory: /plugins/spring/ -->
 
 # Spring API Extension Point and Listener List
+<primary-label ref="IntelliJIDEA_Ultimate"/>
 
 <link-summary>Overview of Extension Points and Listeners for Spring API.</link-summary>
 
@@ -17,13 +18,13 @@
 >
 {style="note"}
 
-53 Extension Points and 5 Listeners for Spring API
+55 Extension Points and 5 Listeners for Spring API
 
 <include from="snippets.md" element-id="ep_list_legend"/>
 
 ## Spring
 
-### Spring - Listeners
+### Spring – Listeners
 
 | Topic | Listener |
 |-------|----------|
@@ -73,17 +74,19 @@
 |-----------------|----------------|
 | [com.intellij.spring.boot.configFileDetector](https://jb.gg/ipe?extensions=com.intellij.spring.boot.configFileDetector) | `SpringBootConfigFileDetector` |
 | [com.intellij.spring.boot.customHintReferenceProvider](https://jb.gg/ipe?extensions=com.intellij.spring.boot.customHintReferenceProvider) | `SpringBootCustomHintReferenceProvider` |
+| [com.intellij.spring.boot.languageSpecificBridge](https://jb.gg/ipe?extensions=com.intellij.spring.boot.languageSpecificBridge) | `SpringBootLanguageSpecificBridge` |
 | [com.intellij.spring.boot.modelConditionalContributor](https://jb.gg/ipe?extensions=com.intellij.spring.boot.modelConditionalContributor) | `ConditionalContributor` |
 | [com.intellij.spring.boot.modelConfigFileContributor](https://jb.gg/ipe?extensions=com.intellij.spring.boot.modelConfigFileContributor) | `SpringBootModelConfigFileContributor` |
 | [com.intellij.spring.boot.modelConfigFileNameContributor](https://jb.gg/ipe?extensions=com.intellij.spring.boot.modelConfigFileNameContributor) | `SpringBootModelConfigFileNameContributor` |
 | [com.intellij.spring.boot.modelExtender](https://jb.gg/ipe?extensions=com.intellij.spring.boot.modelExtender) | `SpringBootModelExtender` |
 | [com.intellij.spring.boot.replacementTokenResolver](https://jb.gg/ipe?extensions=com.intellij.spring.boot.replacementTokenResolver) | `SpringBootReplacementTokenResolver` |
 
-### com.intellij.spring.boot.initializr
+### com.intellij.spring.debugger
 
 | Extension Point | Implementation |
 |-----------------|----------------|
-| [com.intellij.spring.boot.initializr.sharedIndexesProvider](https://jb.gg/ipe?extensions=com.intellij.spring.boot.initializr.sharedIndexesProvider) | `SpringSharedIndexesProvider` |
+| [com.intellij.spring.debugger.runConfigurationExtender](https://jb.gg/ipe?extensions=com.intellij.spring.debugger.runConfigurationExtender) | `SpringDebuggerRunConfigurationExtender` |
+| [com.intellij.spring.debugger.sessionListener](https://jb.gg/ipe?extensions=com.intellij.spring.debugger.sessionListener) | `SpringDebuggerSessionListener` |
 
 ### com.intellij.spring.graphql
 
@@ -102,6 +105,7 @@
 | Extension Point | Implementation |
 |-----------------|----------------|
 | [com.intellij.spring.mvc.applicationPathProvider](https://jb.gg/ipe?extensions=com.intellij.spring.mvc.applicationPathProvider) | `SpringApplicationPathProvider` |
+| [com.intellij.spring.mvc.completion.controllerParamTypeProvider](https://jb.gg/ipe?extensions=com.intellij.spring.mvc.completion.controllerParamTypeProvider) | `ControllerParameterProvider` |
 | [com.intellij.spring.mvc.mergingMvcRequestMappingLineMarkerProvider](https://jb.gg/ipe?extensions=com.intellij.spring.mvc.mergingMvcRequestMappingLineMarkerProvider) | `SpringMergingMvcRequestMappingLineMarkerProvider` |
 | [com.intellij.spring.mvc.springEndpointsIconProvider](https://jb.gg/ipe?extensions=com.intellij.spring.mvc.springEndpointsIconProvider) | `SpringEndpointsIconProvider` |
 | [com.intellij.spring.mvc.viewResolverFactory](https://jb.gg/ipe?extensions=com.intellij.spring.mvc.viewResolverFactory) | `ViewResolverFactory` |
@@ -127,7 +131,6 @@
 | [com.intellij.spring.boot.run.endpoint](https://jb.gg/ipe?extensions=com.intellij.spring.boot.run.endpoint) ![Experimental][experimental] | `Endpoint` |
 | [com.intellij.spring.boot.run.endpointTabConfigurable](https://jb.gg/ipe?extensions=com.intellij.spring.boot.run.endpointTabConfigurable) ![Project-Level][project-level] | `EndpointTabConfigurable` |
 | [com.intellij.spring.boot.run.liveBeansPanelContent](https://jb.gg/ipe?extensions=com.intellij.spring.boot.run.liveBeansPanelContent) | `LiveBeansPanelContent` |
-| [com.intellij.spring.boot.run.starterManager](https://jb.gg/ipe?extensions=com.intellij.spring.boot.run.starterManager) ![Experimental][experimental] | `SpringBootStarterManager` |
 
 ### intellij.spring.el.xml
 

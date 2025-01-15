@@ -38,7 +38,7 @@ The following steps need to be performed only once for each language that suppor
    Define the common `externalIdPrefix` to be used for all stub element types (see [](#adding-stub-elements)).
    See [`StubElementTypeHolderEP`](%gh-ic%/platform/core-api/src/com/intellij/psi/stubs/StubElementTypeHolderEP.java) docs for important requirements.
 
-**Examples**:
+**Examples:**
 - [`JavaStubElementTypes`](%gh-ic%/java/java-psi-impl/src/com/intellij/psi/impl/java/stubs/JavaStubElementTypes.java) registered in [`JavaPsiPlugin.xml`](%gh-ic%/java/java-psi-impl/src/META-INF/JavaPsiPlugin.xml)
 - see [`Angular2MetadataElementTypes`](%gh-ij-plugins%/Angular/src/org/angular2/entities/metadata/Angular2MetadataElementTypes.kt) for Kotlin sample
 
@@ -108,13 +108,17 @@ To access the data from an index, the following instance methods are used on the
 
 `AbstractStubIndex.getAllKeys()/processAllKeys()` returns the list of all keys (processes all keys) in the index for the specified project (for example, the list of all class names found in the project).
 
-> NOTE: These may return stale/out-of-date data. See [](#elements) to obtain/verify actual existing elements for the given key (e.g., when iterating all keys to collect completion variants).
+> The returned keys may return stale/out-of-date data.
+> See [](#elements) to obtain/verify actual existing elements for the given key in a given scope
+> (for example, when iterating all keys to collect relevant completion variants).
+>
+{style="warning" title="Stale Data"}
 
 #### Elements
 
 [`StubIndex.getElements()`](%gh-ic%/platform/indexing-api/src/com/intellij/psi/stubs/StubIndex.java) returns the collection of PSI elements corresponding to a certain key (for example, classes with the specified short name) in the specified scope.
 
-**Example**: [`JavaAnnotationIndex`](%gh-ic%/java/java-indexing-impl/src/com/intellij/psi/impl/java/stubs/index/JavaAnnotationIndex.java)
+**Example:** [`JavaAnnotationIndex`](%gh-ic%/java/java-indexing-impl/src/com/intellij/psi/impl/java/stubs/index/JavaAnnotationIndex.java)
 
 ## Related Forum Discussions
 

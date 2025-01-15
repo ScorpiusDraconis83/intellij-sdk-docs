@@ -1,6 +1,6 @@
-# Testing Overview
+<!-- Copyright 2000-2024 JetBrains s.r.o. and contributors. Use of this source code is governed by the Apache 2.0 license. -->
 
-<!-- Copyright 2000-2022 JetBrains s.r.o. and contributors. Use of this source code is governed by the Apache 2.0 license. -->
+# Testing Overview
 
 <link-summary>Introduction to testing plugins.</link-summary>
 
@@ -27,10 +27,26 @@ See also [](testing_faq.md#how-to-replace-componentservice-in-tests) and [](test
 
 ### UI Tests
 
-Please see the dedicated [intellij-ui-test-robot](https://github.com/JetBrains/intellij-ui-test-robot) library.
-It is fully integrated with Gradle-based setup via [`runIdeForUiTests`](tools_gradle_intellij_plugin.md#tasks-runideforuitests) task.
+UI tests using the dedicated [intellij-ui-test-robot](https://github.com/JetBrains/intellij-ui-test-robot) library can be run via Gradle tasks:
 
-Please do not use <path>platform/testGuiFramework</path>, as it is reserved for internal use.
+<tabs>
+<tab title="IntelliJ Platform Gradle Plugin (2.x)">
+
+Use [`testIdeUi`](tools_intellij_platform_gradle_plugin_tasks.md#testIdeUi) task.
+
+</tab>
+<tab title="Gradle IntelliJ Plugin (1.x)">
+
+Use [`runIdeForUiTests`](tools_gradle_intellij_plugin.md#tasks-runideforuitests) task.
+
+</tab>
+</tabs>
+
+Do not use <path>platform/testGuiFramework</path>, as it is reserved for internal use.
+
+<video src="https://www.youtube.com/watch?v=UJexzfG01Qo"/>
+
+_The IntelliJ Platform integration testing framework, used internally for performance, functional, and UI tests, is now accessible to help streamline and enhance your plugin testing experience._
 
 ## Topics
 
@@ -38,8 +54,8 @@ Please do not use <path>platform/testGuiFramework</path>, as it is reserved for 
 
 > Check out [this step-by-step tutorial](writing_tests_for_plugins.md) teaching how to write and run automated tests for your custom language plugin.
 > Also, code samples
-> [comparing_string_references_inspection](%gh-sdk-samples%/comparing_string_references_inspection)
-> and [conditional_operator_intention](%gh-sdk-samples%/conditional_operator_intention) demonstrate using tests.
+> [comparing_string_references_inspection](%gh-sdk-samples-master%/comparing_string_references_inspection)
+> and [conditional_operator_intention](%gh-sdk-samples-master%/conditional_operator_intention) demonstrate using tests.
 >
 {style="note"}
 

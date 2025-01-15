@@ -4,9 +4,9 @@
 ## Quickstart
 
 The Action Basics Sample Project demonstrates the process of registering actions in various configurations.
-Each action is an extension of the [`AnAction`][sdk:AnAction] abstract class and brings the possibility of extending the IDE with an event performed with the user interaction - i.e., clicking the button, using the keyboard or mouse shortcuts.
+Each action is an extension of the `AnAction` abstract class and brings the possibility of extending the IDE with an event performed with the user interaction - i.e., clicking the button, using the keyboard or mouse shortcuts.
 
-This Plugin registers the [`PopupDialogAction`][file:PopupDialogAction] action, which provides a popup dialog as a feedback, in three different ways:
+This Plugin registers the [`PopupDialogAction`][file:PopupDialogAction] action, which provides a popup dialog as feedback, in three different ways:
 - by assigning the keyboard (<kbd>Ctrl/Cmd</kbd>+<kbd>Alt</kbd>+<kbd>A</kbd>, <kbd>C</kbd>) and mouse shortcuts (<kbd>Ctrl/Cmd</kbd> + <kbd>Mouse Button 3</kbd> + <kbd>Double Click</kbd>),
 - by adding an action to the `ToolsMenu` directly, and as part of new groups added to the Tools menu,
 - by adding an action to a new group in the `EditorPopupMenu`, which is the Editor's context menu.
@@ -30,7 +30,7 @@ Additional features of the plugin:
 
 [docs]: https://plugins.jetbrains.com/docs/intellij/
 [docs:actions]: https://plugins.jetbrains.com/docs/intellij/basic-action-system.html
-[docs:action-override]: https://plugins.jetbrains.com/docs/intellij/basic-action-system.html#setting-the-override-text-element
+[docs:action-override]: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html#idea-plugin__actions__action__override-text
 [docs:action-locale]: https://plugins.jetbrains.com/docs/intellij/basic-action-system.html#localizing-actions-and-groups
 [docs:plugin-configuration-file:actions:action]: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html#idea-plugin__actions__action
 [docs:plugin-configuration-file:resource-bundle]: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html#idea-plugin__resource-bundle

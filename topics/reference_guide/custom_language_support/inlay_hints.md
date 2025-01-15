@@ -1,6 +1,6 @@
-# Inlay Hints
-
 <!-- Copyright 2000-2024 JetBrains s.r.o. and contributors. Use of this source code is governed by the Apache 2.0 license. -->
+
+# Inlay Hints
 
 <link-summary>Providing additional code information directly in the editor without changing the document content.</link-summary>
 
@@ -44,7 +44,7 @@ To provide inlay parameter hints, implement
 and register it in `com.intellij.codeInsight.parameterNameHints` extension point (EP).
 The API documentation of `InlayParameterHintsProvider` explains in detail the rationale behind all methods.
 
-**Examples**:
+**Examples:**
 - [`GroovyInlayParameterHintsProvider`](%gh-ic%/plugins/groovy/src/org/jetbrains/plugins/groovy/codeInsight/hint/GroovyInlayParameterHintsProvider.kt) - shows parameter hints in Groovy code
 - [`KotlinInlayParameterHintsProvider`](%gh-ic%/plugins/kotlin/idea/src/org/jetbrains/kotlin/idea/codeInsight/hints/KotlinInlayParameterHintsProvider.kt) - shows parameter hints in Kotlin code
 
@@ -53,10 +53,7 @@ To suppress inlay parameter hints in specific places, implement
 and register it in `com.intellij.codeInsight.parameterNameHintsSuppressor` EP.
 
 ### Declarative Inlay Hints Provider
-
-> This API is available since 2023.1.
->
-{style="note"}
+<primary-label ref="2023.1"/>
 
 Declarative inlay hints are **inline** textual inlays that can hold expandable list of clickable items.
 Please note this API has limited presentation customization possibilities due to its UI-independent design, which allows utilizing it by different frontend technologies (not only in Swing).
@@ -66,14 +63,44 @@ To provide declarative inlay hints implement declarative
 and register it in `com.intellij.codeInsight.declarativeInlayProvider` EP.
 See the API documentation for the details.
 
-**Examples**:
+**Examples:**
 - [`JavaImplicitTypeDeclarativeInlayHintsProvider`](%gh-ic%/java/java-impl/src/com/intellij/codeInsight/hints/JavaImplicitTypeDeclarativeInlayHintsProvider.kt) - shows inferred type for variables declared with the `var` keyword in Java code when the inferred type may not be clear
 - [`JavaMethodChainsDeclarativeInlayProvider`](%gh-ic%/java/java-impl/src/com/intellij/codeInsight/hints/JavaMethodChainsDeclarativeInlayProvider.kt) - shows method return types in call chains in Java code
 
-### Code Vision Provider
+To provide a custom configuration UI, implement
+[`InlayHintsCustomSettingsProvider`](%gh-ic%/platform/lang-api/src/com/intellij/codeInsight/hints/declarative/InlayHintsCustomSettingsProvider.kt)
+registered in `com.intellij.codeInsight.declarativeInlayProviderCustomSettingsProvider` extension point.
 
-> This API is available since 2022.1.
-> It is still in experimental state and may be changed without preserving backward compatibility.
+Preview texts displayed for inlay hint providers under <ui-path>Settings | Editor | Inlay Hints</ui-path> must be located in plugin resources in <path>inlayProviders/\$provider_id\$</path> directory, for example, <path>inlayProviders/java.implicit.types</path>.
+The <path>\$provider_id\$</path> value must match the `providerId` attribute of `com.intellij.codeInsight.declarativeInlayProvider` EP.
+The preview file name must be <path>preview.\$ext\$</path>, where <path>\$ext\$</path> is a default extension of a supported file type, for example, <path>preview.java</path>.
+Hints displayed in the preview panel are defined with the dedicated markup:
+
+<tabs>
+<tab title="2023.2+">
+
+```
+/*<# Displayed Hint #>*/
+```
+
+</tab>
+<tab title="Pre-2023.2">
+
+```
+<# Displayed Hint #>
+```
+
+</tab>
+</tabs>
+
+**Examples**:
+- [`inlayProviders/java.implicit.types/preview.java`](%gh-ic%/java/java-impl/resources/inlayProviders/java.implicit.types/preview.java)
+- [`inlayProviders/groovy.lambda.parameter.inlay.provider/preview.groovy`](%gh-ic%/plugins/groovy/resources/inlayProviders/groovy.lambda.parameter.inlay.provider/preview.groovy)
+
+### Code Vision Provider
+<primary-label ref="2022.1"/>
+
+> This API is still in experimental state and may be changed without preserving backward compatibility.
 >
 {style="note"}
 
@@ -83,15 +110,29 @@ If there are multiple hints provided for a single element, all will be displayed
 Code vision hints can be displayed over the element, or on the right, at the end of line.
 It is configurable by users in <ui-path>Settings | Editor | Inlay Hints | Code vision</ui-path> by choosing a value in <control>Default position for metrics</control> combo box, or by selecting <control>Position</control> in specific provider entries.
 
-There are two extension points for implementing a code vision provider:
+There are three extension points for implementing a code vision provider:
 - [`DaemonBoundCodeVisionProvider`](%gh-ic%/platform/lang-impl/src/com/intellij/codeInsight/hints/codeVision/DaemonBoundCodeVisionProvider.kt) registered in `com.intellij.codeInsight.daemonBoundCodeVisionProvider` EP
 - [`CodeVisionProvider`](%gh-ic%/platform/lang-impl/src/com/intellij/codeInsight/codeVision/CodeVisionProvider.kt) registered in `com.intellij.codeInsight.codeVisionProvider` EP
+- [`CodeVisionGroupSettingProvider`](%gh-ic%/platform/lang-impl/src/com/intellij/codeInsight/codeVision/settings/CodeVisionGroupSettingProvider.kt) registered in `com.intellij.config.codeVisionGroupSettingProvider` EP
 
 `DaemonBoundCodeVisionProvider` API should be used in cases when code vision entries are related to PSI, so that calculated values are invalidated and recalculated on PSI changes.
 
 `CodeVisionProvider` API should be used for cases when presented information doesn't depend on the PSI.
 
-**Examples**:
+The `CodeVisionGroupSettingProvider` is necessary for displaying the name and description of the code vision provider in the settings.
+The `groupId` must match the value specified in the implementation of the `CodeVisionProvider`; if not specified, it defaults to the `id`.
+The `groupName` is the name shown in the code vision group, and the `description` will be visible in the right details panel.
+
+Code vision preview is available under <ui-path>Settings | Editor | Inlay Hints | Code vision</ui-path>.
+In case if multiple preview examples in different languages are provided for an existing code vision provider, IDE will choose the most important from its point of view.
+For example, IntelliJ IDEA will use Java preview, PhpStorm will use PHP preview, etc.
+
+To provide a preview example for a custom code vision provider:
+1. Create a <path>codeVisionProviders/\$model_id\$/preview.\$ext\$</path> file, for example, <path>codeVisionProviders/vcs.code.vision/preview.java</path>.
+   The <path>\$modelId\$</path> must match the `groupId` of `CodeVisionGroupSettingProvider` and `modelId` (see 2.).
+2. Register an `com.intellij.codeInsight.codeVisionSettingsPreviewLanguage`, which specifies the preview `language` and `modelId`.
+
+**Examples:**
 - [`JavaInheritorsCodeVisionProvider`](%gh-ic%/java/java-impl/src/com/intellij/codeInsight/daemon/impl/JavaInheritorsCodeVisionProvider.kt) - shows number of Java class or method inheritors. Clicking the inlay hint opens the list of inheritors. This provider is `DaemonBoundCodeVisionProvider`.
 - [`JavaReferencesCodeVisionProvider`](%gh-ic%/java/java-impl/src/com/intellij/codeInsight/daemon/impl/JavaReferencesCodeVisionProvider.kt) - shows number of usages of Java class or member. Clicking the inlay opens the list of usages or navigates to the usage if only one exists. This provider is `DaemonBoundCodeVisionProvider`.
 - [`VcsCodeVisionProvider`](%gh-ic%/platform/vcs-impl/src/com/intellij/codeInsight/hints/VcsCodeVisionProvider.kt) - shows the author of a given element, e.g., class or method, based on VCS information. This provider is `CodeVisionProvider`.
@@ -112,7 +153,7 @@ To provide inlay hints, implement
 and register it in `com.intellij.codeInsight.inlayProvider` EP.
 See the API documentation for the details.
 
-**Examples**:
+**Examples:**
 - [`GroovyLocalVariableTypeHintsInlayProvider`](%gh-ic%/plugins/groovy/src/org/jetbrains/plugins/groovy/codeInsight/hint/types/GroovyLocalVariableTypeHintsInlayProvider.kt) - shows local variable types in Groovy code
 - [`MarkdownTableInlayProvider`](%gh-ic%/plugins/markdown/core/src/org/intellij/plugins/markdown/editor/tables/ui/MarkdownTableInlayProvider.kt) - _decorates_ tables in Markdown files.
 - For a more complex example, see

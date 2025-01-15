@@ -1,4 +1,4 @@
-<!-- Copyright 2000-2023 JetBrains s.r.o. and contributors. Use of this source code is governed by the Apache 2.0 license. -->
+<!-- Copyright 2000-2024 JetBrains s.r.o. and contributors. Use of this source code is governed by the Apache 2.0 license. -->
 
 # Customizing Themes - Icons and UI Controls
 
@@ -6,7 +6,7 @@
 
 <tldr>
 
-**Platform UI Guidelines:** [Icons](https://jetbrains.design/intellij/principles/icons/), [Platform theme colors](https://jetbrains.design/intellij/principles/platform_theme_colors/#UI-components)
+**UI Guidelines:** [](icons_style.md), [](platform_theme_colors.md#ui-components)
 
 </tldr>
 
@@ -16,6 +16,8 @@ For plugin developers, [Exposing Theme Metadata](themes_metadata.md) discusses t
 
 > [Color Highlighter Plugin](https://plugins.jetbrains.com/plugin/13309-color-highlighter) adds additional color preview inside the editor.
 >
+
+<include from="developing_themes.md" element-id="themeSamplePlugin"/>
 
 ## Introduction to Theme Description File Syntax
 
@@ -91,7 +93,7 @@ IntelliJ Platform has default icon colors defined for `Actions` and `Objects` co
 * `Actions` are Theme keys for icons that appear in the context of toolbars, and represent actions such as _Compile_, _Run_, or _Debug_.
 * `Objects` are Theme keys for icons that appear in the contexts of lists and trees, and represent entities like files, symbols, or run and debug configurations.
 
-The [JetBrains Platform UI Guideline for Icons](https://jetbrains.design/intellij/principles/icons/) defines the default hexadecimal RGB values of colors for `Actions` and `Objects` keys.
+The [UI Guideline for Icons](icons_style.md) defines the default hexadecimal RGB values of colors for `Actions` and `Objects` keys.
 Note that this document refers to `Objects` keys as "Noun icons."
 
 #### Customizing "Actions" and "Objects" Icon Colors
@@ -120,7 +122,7 @@ In the narrower context of blue `Actions` icons, it will also supersede any glob
 
 The default IntelliJ Platform UI icons can be replaced by custom icons.
 The file format for icons is SVG.
-The [JetBrains Platform UI Guideline for Icons](https://jetbrains.design/intellij/principles/icons/) has detailed specifications for icons.
+The [UI Guideline for Icons](icons_style.md) has detailed specifications for icons.
 
 An icon replacement is described within the `icon {}` section of a Theme description file.
 Note that icon replacement key-value pairs appear outside the `ColorPalette` section.
@@ -150,7 +152,7 @@ The color of a replaced icon takes precedence over any `ColorPalette` overrides.
 Themes can change the appearance of more general controls in the IntelliJ Platform UI.
 Examples of these controls are labels, buttons, checkboxes, trees, lists, and menus.
 
-See also [Platform theme colors — UI components](https://jetbrains.design/intellij/principles/platform_theme_colors/#UI-components) in IntelliJ Platform UI Guidelines.
+See also [Platform theme colors](platform_theme_colors.md#ui-components) in UI Guidelines.
 
 ### Custom UI Control Colors
 

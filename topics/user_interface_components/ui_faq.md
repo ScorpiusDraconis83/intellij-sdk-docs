@@ -6,7 +6,7 @@
 
 <include from="user_interface_components.md" element-id="inspectingExistingUI"/>
 
-## Useful classes
+## Useful Classes
 
 - Package [`com.intellij.ui`](%gh-ic%/platform/util/ui/src/com/intellij/ui/)
 - Package [`com.intellij.util.ui`](%gh-ic%/platform/util/ui/src/com/intellij/util/ui/)
@@ -31,6 +31,12 @@ A number of hardcoded colors is defined in `JBColor`, [`Gray`](%gh-ic%/platform/
 
 ## Text
 
+<tldr>
+
+**UI Guidelines:** [](data_formats.md)
+
+</tldr>
+
 Use [`NaturalComparator`](%gh-ic%/platform/util/base/src/com/intellij/openapi/util/text/NaturalComparator.java) for "natural" sorting of items.
 
 [`StringUtil`](%gh-ic%/platform/util/src/com/intellij/openapi/util/text/StringUtil.java) contains a number of useful methods for manipulating text for UI usage:
@@ -40,13 +46,13 @@ Use [`NaturalComparator`](%gh-ic%/platform/util/base/src/com/intellij/openapi/ut
 - `formatFileSize()` to format filesize: _1.23 KB_
 - `escapeLineBreak()` and related methods to escape special characters
 - `shortenTextWithEllipsis()` and `shortenPathWithEllipsis()` to produce abbreviated UI texts ending with '&#8230;'
-- `quote()` and `unquoteString()` to wrap values: _Usages of "$value$": 218 found_
+- `quote()` and `unquoteString()` to wrap values: _Usages of "\$value\$": 218 found_
 
 See [](internationalization.md) for information about internationalizing plugins.
 
 See [`NlsMessages`](%gh-ic%/platform/ide-core-impl/src/com/intellij/ide/nls/NlsMessages.java) to produce localized messages.
 
-## "Recently Used" entries
+## "Recently Used" Entries
 
 To store and retrieve values for *Recently Used* entries (e.g., filter values), use
 [`RecentsManager`](%gh-ic%/platform/platform-impl/src/com/intellij/ui/RecentsManager.java).
@@ -57,11 +63,21 @@ To determine the current [Theme](themes_getting_started.md)'s style, use [`JBCol
 
 ## Borders and Insets
 
+<tldr>
+
+**UI Guidelines:** [](layout.md)
+
+</tldr>
+
 Always create borders and insets via factory methods from [`JBUI.Borders`](%gh-ic%/platform/util/ui/src/com/intellij/util/ui/JBUI.java) and [`JBUI.Insets`](%gh-ic%/platform/util/ui/src/com/intellij/util/ui/JBUI.java), which create DPI-aware instances.
 Using standard DPI-agnostic instances (reported by inspection <ui-path>Plugin DevKit | Code | Use DPI-aware borders</ui-path> and <ui-path>Plugin DevKit | Code | Use DPI-aware insets</ui-path>)
 can result in UI layout problems.
 
 If you use DPI-aware insets in an empty border (`JBUI.Borders.empty()`), then the insets will be updated automatically, for example, if scaling is changed because the <ui-path>IDE Zoom</ui-path> action was performed or for any other reason.
 If you use the insets elsewhere, you need to manually call `JBInsets.update()` in your component's `updateUI()` method to update the insets accordingly.
+
+## Manipulating Icons
+
+Use [`IconUtil`](%gh-ic%/platform/core-ui/src/util/IconUtil.kt) to scale/colorize/darken/desaturate existing [icons](icons.md) as needed.
 
 <include from="snippets.md" element-id="missingContent"/>

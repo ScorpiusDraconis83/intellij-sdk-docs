@@ -56,6 +56,9 @@ See [](#settings-declaration-attributes) for more information.
 </extensions>
 ```
 
+> To [localize](providing_translations.md) the display name, instead of the `displayName` attribute, use `key` and `bundle` attributes pointing to a key in a [message bundle](internationalization.md#message-bundles).
+> The same applies for [`projectConfigurable`](#declaring-project-settings) extensions.
+
 ### Declaring Project Settings
 
 The project-level settings are declared using `com.intellij.projectConfigurable` EP.
@@ -198,6 +201,6 @@ In that case the IntelliJ Platform calls `ConfigurableProvider.createConfigurabl
 By choosing not to provide a `Configuration` implementation in some circumstances, the `ConfigurableProvider` opts out of the Settings display and modification process.
 The use of `ConfigurableProvider` as a basis for a Settings implementation is declared using [attributes](#table-of-attributes) in the EP declaration.
 
-**Examples**:
+**Examples:**
 - [`RunToolbarSettingsConfigurableProvider`](%gh-ic%/platform/execution-impl/src/com/intellij/execution/runToolbar/RunToolbarSettingsConfigurableProvider.kt)
 - [`VcsManagerConfigurableProvider`](%gh-ic%/platform/vcs-impl/src/com/intellij/openapi/vcs/configurable/VcsManagerConfigurableProvider.java)

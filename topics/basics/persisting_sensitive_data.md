@@ -1,13 +1,13 @@
-<!-- Copyright 2000-2023 JetBrains s.r.o. and contributors. Use of this source code is governed by the Apache 2.0 license. -->
+<!-- Copyright 2000-2024 JetBrains s.r.o. and contributors. Use of this source code is governed by the Apache 2.0 license. -->
 
 # Persisting Sensitive Data
 
-<link-summary>Storing passwords, tokens and other sensitive data securely with Credentials Store API.</link-summary>
+<link-summary>Storing passwords, tokens, and other sensitive data securely with Credentials Store API.</link-summary>
 
 The Credentials Store API allows you to store sensitive user data securely, like passwords, server URLs, etc.
 
 ## How to Use
-Use [`PasswordSafe`](%gh-ic%/platform/remote-core/src/ide/passwordSafe/PasswordSafe.kt) to work with credentials.
+Use [`PasswordSafe`](%gh-ic%/platform/credential-store/src/ide/passwordSafe/PasswordSafe.kt) to work with credentials.
 
 _Common Utility Method:_
 
@@ -56,7 +56,7 @@ The default storage format depends on the OS.
 
 [Windows]: https://keepass.info
 [macOS]: https://developer.apple.com/documentation/security/keychain_services
-[linux]: https://specifications.freedesktop.org/secret-service/latest/
+[linux]: https://specifications.freedesktop.org/secret-service-spec/latest/
 [linux2]: https://wiki.gnome.org/Projects/Libsecret
 
 Users can override the default behavior in <ui-path>Settings | Appearance & Behavior | System Settings | Passwords</ui-path>.

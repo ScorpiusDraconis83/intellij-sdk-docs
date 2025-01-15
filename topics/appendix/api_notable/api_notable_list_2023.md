@@ -13,7 +13,7 @@ _Early Access Program_ (EAP) releases of upcoming versions are available [here](
 ### IntelliJ Platform 2023.3
 
 Threading Model changes
-: Please see updated [](general_threading_rules.md).
+: Please see updated [](threading_model.md).
 
 External Annotators in Dumb Mode
 : [](syntax_highlighting_and_error_highlighting.md#external-annotator) can now run in during indexing.
@@ -43,7 +43,7 @@ Intentions that cannot show meaningful before/after preview
 : Intentions not modifying code can specify `<skipBeforeAfter>true</skipBeforeAfter>` in their registration.
 
 JCEF-based SVG viewer
-: SVG pictures are now shown using [JCEF](jcef.md) instead of rendering via the Apache Batik library ([Details](https://youtrack.jetbrains.com/issue/IDEA-230850)).
+: SVG pictures are now shown using [JCEF](embedded_browser_jcef.md) instead of rendering via the Apache Batik library ([Details](https://youtrack.jetbrains.com/issue/IDEA-230850)).
 
 ### IntelliJ IDEA 2023.2
 

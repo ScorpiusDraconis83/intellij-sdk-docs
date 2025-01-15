@@ -39,7 +39,7 @@ Reader Mode customization
 : Implement [`ReaderModeProvider`](%gh-ic%/platform/editor-ui-api/src/com/intellij/codeInsight/actions/ReaderModeProvider.kt) and register in `com.intellij.readerModeProvider` extension point to apply custom settings for files rendered in reader mode. Provide `com.intellij.codeInsight.actions.ReaderModeMatcher` to disable Reader Mode for particular set of files.
 
 Text Editor customization
-: Implement [`TextEditorCustomizer`](%gh-ic%/platform/platform-impl/src/com/intellij/openapi/fileEditor/impl/text/TextEditorCustomizer.java) and register in `com.intellij.textEditorCustomizer` extension point to customize created editors.
+: Implement [`TextEditorCustomizer`](%gh-ic%/platform/platform-impl/src/com/intellij/openapi/fileEditor/impl/text/TextEditorCustomizer.kt) and register in `com.intellij.textEditorCustomizer` extension point to customize created editors.
 
 ### JavaScript Plugin 2020.3
 
@@ -87,7 +87,7 @@ Delegate Run Anything/Terminal commands to IDE features
 : Switch to matching IDE feature by implementing [`TerminalShellCommandHandler`](%gh-ic%/platform/execution-impl/src/com/intellij/terminal/TerminalShellCommandHandler.kt) (`com.intellij.terminal.shellCommandHandler` extension point). [Blog post](https://blog.jetbrains.com/idea/2020/07/run-ide-features-from-the-terminal/)
 
 Deprecating JavaFX in favor of JCEF
-: We recommend switching to [JCEF](jcef.md), please see [blog post](https://blog.jetbrains.com/platform/2020/07/javafx-and-jcef-in-the-intellij-platform/) for details.
+: We recommend switching to [JCEF](embedded_browser_jcef.md), please see [blog post](https://blog.jetbrains.com/platform/2020/07/javafx-and-jcef-in-the-intellij-platform/) for details.
 
 ASM Library 8.0.1
 : Updated from 7.0.1.
@@ -123,10 +123,10 @@ Configurable status bar widgets
 : Use `com.intellij.statusBarWidgetFactory` extension point to provide widgets that can be disabled or reordered, see [](status_bar_widgets.md).
 
 JCEF Support (_Experimental Feature_)
-: Allows [embedding](jcef.md) Chromium-based browser in the IDE.
+: Allows [embedding](embedded_browser_jcef.md) Chromium-based browser in the IDE.
 
 Override text presentation for actions depending on menu context
-: Set the [`<override-text>`](basic_action_system.md#setting-the-override-text-element) element within the [`<action>`](plugin_configuration_file.md#idea-plugin__actions__action) declaration in <path>[plugin.xml](plugin_configuration_file.md)</path>.
+: Set the [`<override-text>`](plugin_configuration_file.md#idea-plugin__actions__action__override-text) element within the [`<action>`](plugin_configuration_file.md#idea-plugin__actions__action) declaration in <path>[plugin.xml](plugin_configuration_file.md)</path>.
 
 Changes in Project Open/Import
 : **Import from Existing Sources** has been removed from the Welcome Screen, leaving only **Open or Import**, which calls a different extension than the one previously used to contribute a wizard step to **Import from Existing Sources** (which is still available in the <control>File</control> menu). To support **Open or Import**, a plugin must provide [`ProjectOpenProcessor`](%gh-ic%/platform/platform-api/src/com/intellij/projectImport/ProjectOpenProcessor.kt).
